@@ -996,17 +996,21 @@
       if (!v.isDefined(value)) {
         return;
       }
-      if (!v.isString(value)) {
-        return message;
-      }
+      // if (!v.isString(value)) {
+      //   return message;
+      // }
 
       if (v.isString(pattern)) {
         pattern = new RegExp(options.pattern, options.flags);
       }
       match = pattern.exec(value);
-      if (!match || match[0].length != value.length) {
+      if (v.isNumber(value)) {
+        if (!match) {
+          return message;
+        }
+      } else if (!match || match[0].length != value.length) {
         return message;
-      }
+      } 
     },
     inclusion: function(value, options) {
       // Empty values are fine
